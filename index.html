@@ -1,0 +1,942 @@
+<html>
+
+<head>
+    <meta charset=UTF-8>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <script src="config.js"></script>
+</head>
+
+<body>
+    <div class="background-florals" aria-hidden="true">
+        <span class="background-flower flower-one">✿</span>
+        <span class="background-flower flower-two">❀</span>
+        <span class="background-flower flower-three">✾</span>
+        <span class="background-flower flower-four">✿</span>
+        <span class="background-flower flower-five">❀</span>
+        <span class="background-flower flower-six">✾</span>
+        <span class="background-flower flower-seven">✿</span>
+        <span class="background-flower flower-eight">❀</span>
+        <span class="background-flower flower-nine">✾</span>
+        <span class="background-flower flower-ten">✿</span>
+        <span class="background-flower flower-eleven">❀</span>
+        <span class="background-flower flower-twelve">✾</span>
+        <span class="background-flower flower-thirteen">✿</span>
+        <span class="background-flower flower-fourteen">❀</span>
+        <span class="background-flower flower-fifteen">✾</span>
+        <span class="background-flower flower-sixteen">✿</span>
+    </div>
+
+    <div class="backdrop-blur" id="backdropOverlay"></div>
+
+    <div class="main-wrapper">
+        <div class="container">
+            <div class="cube-wrapper">
+                <div class="cube" id="giftCube">
+                    <div class="card top opp"></div>
+                    <div class="card left opp"></div>
+                    <div class="card right opp"></div>
+                    <div class="card bottom opp"></div>
+                    <div class="card font front opp"></div>
+                    <div class="card back">
+                        <div class="photo-box-wrapper" id="photoBoxWrapper">
+                            <div class="mystery-item-card" id="mysteryItemCard">
+                                <div class="mystery-qmark">❓</div>
+                                <div class="mystery-sparkle">✨ 🎁 ✨</div>
+                                <div class="mystery-label">Bí Mật</div>
+                            </div>
+
+                            <canvas id="foam-canvas"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flower-bouquet-wrapper" id="flowerBouquet">
+                    <img src="img/flower_bouquet.jpg" alt="Bó hoa chúc mừng 20-10" class="bouquet-img" id="bouquetImg">
+                    <div class="bouquet-badge" id="bouquetBadge">💐 Bó hoa 20-10</div>
+                    <div class="bouquet-touch-hint" id="bouquetTouchHint">✨ Chạm vào bó hoa để nhận hoa nha 💖</div>
+                </div>
+
+                <div class="bubble-tea-companion" id="bubbleTeaCompanion">
+                    <img src="img/bubble_tea.jpg" alt="Cốc trà sữa ngọt ngào" class="companion-tea-img" id="companionTeaImg">
+                    <div class="tea-badge" id="companionTeaBadge">🧋 Trà sữa ngọt ngào</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="top-guide-banner" id="topGuideBanner">
+        <span class="top-guide-icon" id="topGuideIcon">🎁</span>
+        <div class="top-guide-content">
+            <span class="top-guide-text" id="topGuideText"></span>
+        </div>
+    </div>
+
+    <div class="envelope-wrapper" id="envelopeWrapper">
+        <div class="envelope" id="mainEnvelope">
+
+            <div class="letter" id="letterCard">
+                <div class="letter-inner">
+                    <span class="letter-floral-corner floral-top-left" aria-hidden="true">✿<i>❀</i></span>
+                    <span class="letter-floral-corner floral-bottom-right" aria-hidden="true">✿<i>❀</i></span>
+                    <img class="letter-corner-image" id="letterCornerImage" src="" alt="Ảnh kỷ niệm">
+                    <img class="letter-bottom-image" id="letterBottomImage" src="" alt="Ảnh kỷ niệm">
+                    <div class="letter-header">
+                        <span id="headerTitle"></span>
+                    </div>
+                    <div class="letter-body">
+                        <p id="recipientName"></p>
+                        <p id="message"></p>
+                    </div>
+        <button class="letter-continue-button" id="continueAfterLetter" type="button">Tiếp theo</button>
+                </div>
+            </div>
+
+            <div class="envelope-flap" id="envelopeFlap" aria-hidden="true">
+                <svg viewBox="0 0 100 34" preserveAspectRatio="none" focusable="false">
+                    <path d="M4 0 H96 Q100 0 100 4 Q100 8 96 10 L50 34 L4 10 Q0 8 0 4 Q0 0 4 0 Z" fill="#ff9ebb"></path>
+                </svg>
+            </div>
+
+            <div class="envelope-pocket"></div>
+
+            <div class="seal-heart" id="sealButton">Mở thư</div>
+        </div>
+    </div>
+
+    <div class="final-gifts" id="finalGifts" aria-hidden="true"></div>
+    <div class="tea-rain-layer" id="teaRainLayer" aria-hidden="true"></div>
+    <div class="journey-controls" id="journeyControls">
+        <button class="journey-back-button" id="journeyBackButton" type="button" aria-label="Quay lại bước trước">← <span>Quay lại</span></button>
+        <button class="journey-continue-button" id="journeyContinueButton" type="button">Tiếp theo</button>
+        <button class="flower-receive-button" id="flowerReceiveButton" type="button">Tiếp theo</button>
+        <button class="journey-retry-button" id="journeyRetryButton" type="button">Thử lại</button>
+    </div>
+
+    <div class="memory-gallery-popup" id="memoryGalleryPopup" aria-hidden="true">
+        <div class="memory-gallery-photos" id="memoryGalleryPhotos"></div>
+    </div>
+
+    <div class="flower-receive-popup" id="flowerReceivePopup" aria-hidden="true">
+        <div class="flower-receive-card">
+            <h2 class="flower-receive-header" id="flowerReceiveHeader"></h2>
+            <img class="flower-receive-image" id="flowerReceiveImage" src="" alt="Bó hoa tặng em">
+        </div>
+    </div>
+
+    <canvas id="flower-canvas"></canvas>
+
+    <div class="photo-lightbox" id="photoLightbox" aria-hidden="true">
+        <div class="photo-lightbox-frame">
+            <img class="photo-lightbox-image" id="photoLightboxImage" alt="Ảnh kỷ niệm phóng to">
+            <button class="photo-lightbox-close" id="photoLightboxClose" type="button" aria-label="Đóng ảnh">×</button>
+        </div>
+    </div>
+</body>
+
+<script>
+    $(document).ready(function() {
+        document.title = CONFIG.pageTitle;
+        $('#sealButton').text(CONFIG.card.sealButtonText);
+        var insideImages = Array.isArray(CONFIG.imagesInsideBox) ? CONFIG.imagesInsideBox.filter(Boolean) : [];
+        var cornerImage = CONFIG.card.cornerImage || insideImages[0];
+        var bottomImage = Object.prototype.hasOwnProperty.call(CONFIG.card, 'bottomImage')
+            ? CONFIG.card.bottomImage
+            : insideImages[2] || insideImages[0];
+        if (cornerImage) $('#letterCornerImage').attr('src', cornerImage);
+        else $('#letterCornerImage').removeAttr('src');
+        if (bottomImage) $('#letterBottomImage').attr('src', bottomImage);
+        else $('#letterBottomImage').removeAttr('src');
+        $('#bouquetImg').attr('src', CONFIG.bouquet.image);
+        $('#bouquetBadge').text(CONFIG.bouquet.badgeText);
+        $('#companionTeaImg').attr('src', CONFIG.bubbleTea.image);
+        $('#companionTeaBadge').text(CONFIG.bubbleTea.badgeText);
+        if (!CONFIG.bubbleTea.enabled) $('#bubbleTeaCompanion').hide();
+
+        setTimeout(function() {
+            showGuide('initial');
+        }, 500);
+
+        var hoverTurnAnimation = null;
+        $('.cube-wrapper').on('mouseenter.cubeHover', function() {
+            if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+            var cube = document.getElementById('giftCube');
+            if (!cube || cube.classList.contains('stop')) return;
+
+            var currentTransform = getComputedStyle(cube).transform;
+            cube.style.animation = 'none';
+            cube.style.transform = currentTransform;
+            void cube.offsetWidth;
+            hoverTurnAnimation = cube.animate([
+                { transform: currentTransform },
+                { transform: 'rotateY(0deg)' }
+            ], {
+                duration: 600,
+                easing: 'cubic-bezier(.2, .8, .25, 1)',
+                fill: 'forwards'
+            });
+        }).on('mouseleave.cubeHover', function() {
+            if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+            var cube = document.getElementById('giftCube');
+            if (hoverTurnAnimation) {
+                hoverTurnAnimation.cancel();
+                hoverTurnAnimation = null;
+            }
+            if (cube && !cube.classList.contains('stop')) {
+                cube.style.removeProperty('transform');
+                cube.style.removeProperty('animation');
+            }
+        });
+
+        $('.cube').click(function() {
+            var $this = $(this);
+            if (!$this.hasClass('stop')) {
+                if (hoverTurnAnimation) {
+                    hoverTurnAnimation.finish();
+                    var frontTransform = getComputedStyle(this).transform;
+                    hoverTurnAnimation.cancel();
+                    this.style.animation = 'none';
+                    this.style.transform = frontTransform;
+                    hoverTurnAnimation = null;
+                }
+                $('.cube-wrapper').off('.cubeHover');
+                $this.addClass('stop');
+                $('.font').addClass('open-box');
+                $('.opp').addClass('opacity');
+
+                $('#foam-canvas').addClass('active');
+                initFoamParticles();
+
+                startFlowerRain();
+
+                startEnvelopeReveal();
+            }
+        });
+
+        $('#mainEnvelope, #sealButton').click(function(e) {
+            e.stopPropagation();
+
+            if ($('#envelopeWrapper').hasClass('move-left') || $('#mainEnvelope').hasClass('open')) return;
+
+            $('#sealButton').css({
+                opacity: 0,
+                transform: 'translate(-50%, -50%) scale(0.6)',
+                'pointer-events': 'none',
+                transition: 'all 0.35s ease'
+            });
+            $('#mainEnvelope').addClass('open');
+            launchLetterFlowerBurst();
+
+            setTimeout(function() {
+                $('#envelopeFlap').css('z-index', 1);
+            }, 560);
+
+            setTimeout(function() {
+                $('#mainEnvelope').addClass('pull-out');
+            }, 620);
+
+            setTimeout(function() {
+                if (window.innerWidth <= 768) {
+                    $('#envelopeWrapper').appendTo('body');
+                }
+
+                var $letterWrapper = $('#envelopeWrapper');
+                $letterWrapper.removeClass('center-box letter-expanded').addClass('move-left letter-mode');
+                requestAnimationFrame(function() {
+                    requestAnimationFrame(function() {
+                        $letterWrapper.addClass('letter-expanded');
+                    });
+                });
+                setTimeout(startTypewriterSequence, 1000);
+            }, 1350);
+        });
+    });
+
+    function launchLetterFlowerBurst() {
+        var envelope = document.getElementById('mainEnvelope');
+        if (!envelope) return;
+        var rect = envelope.getBoundingClientRect();
+        var centerX = rect.left + rect.width / 2;
+        var centerY = rect.top + rect.height * .42;
+        var colors = ['#ff77a8', '#ffd166', '#a8e6cf', '#c8a5ff', '#ff9a9e'];
+        var $layer = $('<div class="letter-burst-layer" aria-hidden="true"></div>').appendTo('body');
+        $('<span class="letter-burst-wave"></span>')
+            .css({ left: centerX + 'px', top: centerY + 'px' })
+            .appendTo($layer);
+
+        for (var i = 0; i < 22; i++) {
+            var angle = (Math.PI * 2 * i / 22) + (Math.random() - .5) * .35;
+            var distance = 62 + Math.random() * 80;
+            var $petal = $('<span class="letter-burst-petal"></span>');
+            $petal.css({
+                left: centerX + 'px',
+                top: centerY + 'px',
+                '--burst-x': (Math.cos(angle) * distance) + 'px',
+                '--burst-y': (Math.sin(angle) * distance) + 'px',
+                '--burst-rotate': ((Math.random() * 260) - 130) + 'deg',
+                '--burst-color': colors[Math.floor(Math.random() * colors.length)],
+                '--burst-delay': (Math.random() * 100) + 'ms'
+            }).appendTo($layer);
+        }
+        setTimeout(function() { $layer.remove(); }, 1500);
+    }
+
+    function startFlowerRain() {
+        const canvas = document.getElementById('flower-canvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', function() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        const petalColors = [
+            { fill: '#ff758c', stroke: '#ff4b6e' },
+            { fill: '#ff7eb3', stroke: '#ff5277' },
+            { fill: '#ffb199', stroke: '#ff8a73' },
+            { fill: '#fccb90', stroke: '#ffa07a' },
+            { fill: '#ffeaa7', stroke: '#fdcb6e' },
+            { fill: '#ff9a9e', stroke: '#fecfef' }
+        ];
+
+        const petals = [];
+        const totalPetals = 24;
+
+        const boxWrapper = document.querySelector('.cube-wrapper');
+        const boxRect = boxWrapper ? boxWrapper.getBoundingClientRect() : { left: width / 2 - 110, top: height / 2 - 110, width: 220, height: 220 };
+        const originX = boxRect.left + boxRect.width / 2;
+        const originY = boxRect.top + boxRect.height / 2;
+
+        class Petal {
+            constructor(isInitialBurst = false) {
+                this.reset(isInitialBurst);
+            }
+
+            reset(isInitialBurst = false) {
+                if (isInitialBurst) {
+                    this.x = originX + (Math.random() - 0.5) * 50;
+                    this.y = originY + (Math.random() - 0.5) * 50;
+                    const angle = Math.random() * Math.PI * 2;
+                    const speed = 0.5 + Math.random() * 1.1;
+                    this.vx = Math.cos(angle) * speed;
+                    this.vy = Math.sin(angle) * speed - 0.4;
+                } else {
+                    this.x = Math.random() * width;
+                    this.y = -20 - Math.random() * 80;
+                    this.vx = (Math.random() - 0.5) * 0.35;
+                    this.vy = 0.35 + Math.random() * 0.45;
+                }
+
+                this.size = 5 + Math.random() * 5;
+                this.angle = Math.random() * 360;
+                this.angleSpeed = (Math.random() - 0.5) * 0.7;
+                this.sway = Math.random() * Math.PI * 2;
+                this.swaySpeed = 0.02 + Math.random() * 0.03;
+                this.color = petalColors[Math.floor(Math.random() * petalColors.length)];
+                this.opacity = 0.35 + Math.random() * 0.25;
+            }
+
+            update() {
+                this.sway += this.swaySpeed;
+                this.x += this.vx + Math.sin(this.sway) * 0.45;
+                this.y += this.vy;
+                this.angle += this.angleSpeed;
+
+                if (this.y > height + 20 || this.x < -30 || this.x > width + 30) {
+                    this.reset(false);
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate((this.angle * Math.PI) / 180);
+                ctx.scale(Math.sin(this.sway), 1);
+
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.bezierCurveTo(-this.size / 2, -this.size / 2, -this.size, this.size / 3, 0, this.size);
+                ctx.bezierCurveTo(this.size, this.size / 3, this.size / 2, -this.size / 2, 0, 0);
+
+                ctx.fillStyle = this.color.fill;
+                ctx.globalAlpha = this.opacity;
+                ctx.fill();
+
+                ctx.strokeStyle = this.color.stroke;
+                ctx.lineWidth = 0.6;
+                ctx.stroke();
+
+                ctx.restore();
+            }
+        }
+
+        for (let i = 0; i < totalPetals; i++) {
+            petals.push(new Petal(i < 18));
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+
+            for (let i = 0; i < petals.length; i++) {
+                petals[i].update();
+                petals[i].draw();
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    }
+
+    let foamDispersed = false;
+    let foamBalls = [];
+    let paperStrands = [];
+    let foamCtx, foamCanvas;
+    let foamAnimId;
+
+    function initFoamParticles() {
+        foamCanvas = document.getElementById('foam-canvas');
+        if (!foamCanvas) return;
+        foamCanvas.width = 228;
+        foamCanvas.height = 228;
+        foamCtx = foamCanvas.getContext('2d');
+        foamDispersed = false;
+
+        const ballColors = [
+            '#ffffff', '#ffffff', '#fff5f7', '#ffccd5', '#ffb3c1',
+            '#ffe4e1', '#f0f8ff', '#fff0f5', '#fed0d6', '#f8f9fa'
+        ];
+
+        const strandColors = [
+            '#ff85a1', '#ffadc6', '#f9bcdd', '#ffd1dc', '#fff0f5',
+            '#fcd5ce', '#e8dff5', '#ff99c8', '#fec5bb'
+        ];
+
+        paperStrands = [];
+        const totalStrands = 20;
+        for (let i = 0; i < totalStrands; i++) {
+            paperStrands.push({
+                x: 15 + Math.random() * 198,
+                y: 15 + Math.random() * 198,
+                length: 22 + Math.random() * 32,
+                thickness: 2.2 + Math.random() * 2,
+                angle: Math.random() * Math.PI * 2,
+                curve: (Math.random() - 0.5) * 18,
+                color: strandColors[Math.floor(Math.random() * strandColors.length)],
+                vx: 0,
+                vy: 0,
+                rotSpeed: (Math.random() - 0.5) * 0.1,
+                alpha: 0.95,
+                dispersed: false
+            });
+        }
+
+        foamBalls = [];
+        const totalBalls = 90;
+        for (let i = 0; i < totalBalls; i++) {
+            foamBalls.push({
+                x: 8 + Math.random() * 212,
+                y: 8 + Math.random() * 212,
+                radius: 3.5 + Math.random() * 3.5,
+                color: ballColors[Math.floor(Math.random() * ballColors.length)],
+                vx: 0,
+                vy: 0,
+                alpha: 0.98,
+                dispersed: false
+            });
+        }
+
+        function drawScene() {
+            foamCtx.clearRect(0, 0, 228, 228);
+
+            for (let i = 0; i < paperStrands.length; i++) {
+                let s = paperStrands[i];
+                if (s.dispersed) {
+                    s.x += s.vx;
+                    s.y += s.vy;
+                    s.vy += 0.22;
+                    s.angle += s.rotSpeed;
+                    s.alpha -= 0.016;
+                }
+
+                if (s.alpha > 0) {
+                    foamCtx.save();
+                    foamCtx.globalAlpha = s.alpha;
+                    foamCtx.translate(s.x, s.y);
+                    foamCtx.rotate(s.angle);
+                    foamCtx.beginPath();
+                    foamCtx.moveTo(-s.length / 2, 0);
+                    foamCtx.quadraticCurveTo(0, s.curve, s.length / 2, 0);
+                    foamCtx.strokeStyle = s.color;
+                    foamCtx.lineWidth = s.thickness;
+                    foamCtx.lineCap = 'round';
+                    foamCtx.stroke();
+                    foamCtx.restore();
+                }
+            }
+
+            for (let i = 0; i < foamBalls.length; i++) {
+                let b = foamBalls[i];
+                if (b.dispersed) {
+                    b.x += b.vx;
+                    b.y += b.vy;
+                    b.vy += 0.22;
+                    b.alpha -= 0.016;
+                }
+
+                if (b.alpha > 0) {
+                    foamCtx.save();
+                    foamCtx.globalAlpha = b.alpha;
+                    foamCtx.beginPath();
+                    foamCtx.arc(b.x, b.y, b.radius, 0, Math.PI * 2);
+                    foamCtx.fillStyle = b.color;
+                    foamCtx.fill();
+
+                    foamCtx.beginPath();
+                    foamCtx.arc(b.x - b.radius * 0.35, b.y - b.radius * 0.35, b.radius * 0.32, 0, Math.PI * 2);
+                    foamCtx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+                    foamCtx.fill();
+                    foamCtx.restore();
+                }
+            }
+
+            foamAnimId = requestAnimationFrame(drawScene);
+        }
+
+        drawScene();
+
+    }
+
+    function startEnvelopeReveal() {
+        setTimeout(function() {
+            $('#backdropOverlay').addClass('active');
+
+            fragmentGiftBox();
+
+            $('#giftCube').css({
+                transition: 'all 0.75s cubic-bezier(0.2, 0.8, 0.25, 1)',
+                transform: 'scale(0) rotate(180deg)',
+                opacity: 0,
+                'pointer-events': 'none'
+            });
+            setTimeout(function() {
+                $('#giftCube').hide();
+                if (foamAnimId) {
+                    cancelAnimationFrame(foamAnimId);
+                    foamAnimId = null;
+                }
+            }, 750);
+
+            var boxRect = document.getElementById('giftCube').getBoundingClientRect();
+            $('#envelopeWrapper').css({
+                '--from-x': (boxRect.left + boxRect.width / 2 - window.innerWidth / 2) + 'px',
+                '--from-y': (boxRect.top + boxRect.height / 2 - window.innerHeight / 2) + 'px'
+            }).addClass('show-envelope center-box jump-out');
+
+            showGuide('envelopeArrive');
+        }, 0);
+    }
+
+    function fragmentGiftBox() {
+        var box = document.querySelector('.cube-wrapper');
+        var cube = document.querySelector('#giftCube');
+        if (!box || !cube) return;
+
+        var rect = box.getBoundingClientRect();
+        var $fragments = $('<div class="gift-fragments" aria-hidden="true"></div>');
+        var faces = Array.from(cube.querySelectorAll('.card')).filter(function(face) {
+            return !face.classList.contains('top');
+        });
+        var directions = [
+            [-62, -64, -24], [64, -38, 22], [-70, 35, -18], [60, 68, 25], [0, 88, -8]
+        ];
+
+        faces.forEach(function(face, index) {
+            var piece = document.createElement('div');
+            piece.className = 'gift-fragment-piece';
+            var faceCopy = face.cloneNode(false);
+            faceCopy.classList.add('gift-fragment-face');
+            piece.appendChild(faceCopy);
+            var direction = directions[index];
+            $(piece).css({
+                top: rect.top + 'px',
+                left: rect.left + 'px',
+                '--box-scale': (rect.width / box.offsetWidth),
+                '--piece-x': direction[0] + 'px',
+                '--piece-y': direction[1] + 'px',
+                '--piece-rotation': direction[2] + 'deg',
+                '--piece-delay': (index * 24) + 'ms'
+            });
+            $fragments.append(piece);
+        });
+
+        $('body').append($fragments);
+        setTimeout(function() { $fragments.remove(); }, 1250);
+    }
+
+    function typeWriter(element, text, speed, callback) {
+        var chars = Array.from((text || '').normalize('NFC'));
+        var i = 0;
+        element.html('<span class="typewriter-text"></span>');
+        var $textSpan = element.find('.typewriter-text');
+
+        function typeChar() {
+            if (i < chars.length) {
+                var char = chars[i];
+                $textSpan.text($textSpan.text() + char);
+                i++;
+
+                var delay = speed;
+                if (char === ',' || char === ';') delay = speed * 4.5;
+                else if (char === '.' || char === '!' || char === '?') delay = speed * 6.5;
+
+                setTimeout(typeChar, delay);
+            } else {
+                if (callback) callback();
+            }
+        }
+        typeChar();
+    }
+
+    function startTypewriterSequence() {
+        closePhotoLightbox();
+        var headerText = CONFIG.card.headerTitle;
+        var recipientText = CONFIG.card.recipientName;
+        var messageText = CONFIG.card.message;
+        var speed = CONFIG.typewriterSpeed;
+
+        var $headEl = $('#headerTitle');
+        var $recEl = $('#recipientName');
+        var $msgEl = $('#message');
+
+        $headEl.empty();
+        $recEl.empty();
+        $msgEl.empty();
+        $('#envelopeWrapper')
+            .removeClass('letter-images-visible letter-writing-image-visible')
+            .addClass('letter-writing-image-visible');
+
+        showGuide('writing');
+
+        typeWriter($headEl, headerText, speed + 10, function() {
+            setTimeout(function() {
+                typeWriter($recEl, recipientText, speed, function() {
+                    setTimeout(function() {
+                        typeWriter($msgEl, messageText, speed, function() {
+
+                            setTimeout(function() {
+                                $('#envelopeWrapper')
+                                    .removeClass('letter-writing-image-visible')
+                                    .addClass('letter-images-visible');
+                                $('#continueAfterLetter').addClass('is-visible');
+                                $('#backdropOverlay').removeClass('active');
+                            }, 500);
+                        });
+                    }, 250);
+                });
+            }, 200);
+        });
+    }
+
+    function showFinalGifts() {
+        $('#backdropOverlay').removeClass('active spotlight-active');
+        $('#topGuideBanner').hide();
+        $('#bouquetTouchHint, #bouquetBadge, #companionTeaBadge, #bubbleTeaCompanion').hide();
+
+        $('#flowerBouquet').appendTo('body');
+        $('#flowerBouquet')
+            .removeClass('spotlight-center docked-bottom-right is-grown')
+            .addClass('show final-gift final-bouquet')
+            .css({ display: 'flex', visibility: 'visible' });
+
+        $('#envelopeWrapper').removeClass('letter-hidden-for-photos').addClass('letter-centered letter-float');
+
+        var positionFinalFlower = function() {
+            var letterRect = $('#letterCard')[0].getBoundingClientRect();
+            var flowerSize = window.innerWidth <= 768 ? 130 : 170;
+            var flowerLeft = Math.max(8, Math.min(letterRect.right - flowerSize * .48, window.innerWidth - flowerSize - 8));
+            var flowerTop = Math.max(8, Math.min(letterRect.bottom - flowerSize * .36, window.innerHeight - flowerSize - 8));
+            $('#flowerBouquet').css({ '--bouquet-left': flowerLeft + 'px', '--bouquet-top': flowerTop + 'px' });
+        };
+
+        positionFinalFlower();
+        $('#finalGifts').addClass('is-visible');
+        $('body').addClass('has-final-gifts');
+        startTeaRain();
+        setTimeout(function() {
+            $('#flowerBouquet').addClass('is-grown');
+        }, 100);
+        $(window).off('resize.finalFlower').on('resize.finalFlower', positionFinalFlower);
+    }
+
+    var teaRainTimer = null;
+    function startTeaRain() {
+        stopTeaRain();
+        var $layer = $('#teaRainLayer').empty();
+        function dropTea() {
+            if (!$('body').hasClass('has-final-gifts')) return;
+            $('<span aria-hidden="true">🧋</span>')
+                .addClass('tea-rain-cup')
+                .css({
+                    left: (4 + Math.random() * 92) + 'vw',
+                    '--tea-drift': ((Math.random() - .5) * 90) + 'px',
+                    '--tea-rotation': ((Math.random() - .5) * 32) + 'deg',
+                    '--tea-duration': (6.5 + Math.random() * 2.5) + 's',
+                    '--tea-size': (18 + Math.random() * 8) + 'px'
+                })
+                .on('animationend', function() { $(this).remove(); })
+                .appendTo($layer);
+        }
+        dropTea();
+        teaRainTimer = setInterval(dropTea, 500);
+    }
+
+    function stopTeaRain() {
+        if (teaRainTimer) {
+            clearInterval(teaRainTimer);
+            teaRainTimer = null;
+        }
+        $('#teaRainLayer').empty();
+    }
+
+    var journeyStage = 'letter';
+    function setJourneyStage(stage) {
+        journeyStage = stage;
+        var canGoBack = stage === 'photos' || stage === 'flower' || stage === 'final';
+        $('#journeyBackButton span').text('Quay lại');
+        $('#journeyBackButton').toggleClass('is-visible', canGoBack);
+        $('#journeyContinueButton').toggle(stage === 'photos');
+        $('#flowerReceiveButton').toggle(stage === 'flower');
+        $('#journeyRetryButton').toggle(stage === 'final');
+        $('#journeyControls').toggleClass('is-visible', canGoBack);
+    }
+
+    $('#journeyRetryButton').on('click', function() {
+        window.location.reload();
+    });
+
+    var memoryGalleryOnClose = null;
+    var memoryGallerySpawnTimer = null;
+
+    function showMemoryGalleryPopup(onClose) {
+        var $photos = $('#memoryGalleryPhotos').empty();
+        var sources = CONFIG.imagesInsideBox.filter(Boolean);
+        var sourceIndex = 0;
+        function spawnPhotoBubble() {
+            if (!sources.length || !$('#memoryGalleryPopup').hasClass('is-open')) return;
+            var width = window.innerWidth <= 480 ? 58 : (window.innerWidth <= 900 ? 64 : 72);
+            var size = width;
+            var centeredSpread = (Math.random() + Math.random()) / 2;
+            $('<img>').attr({ src: sources[sourceIndex % sources.length], alt: 'Ảnh kỷ niệm bay lên' })
+                .addClass('memory-gallery-photo')
+                .css({
+                    '--rise-delay': '0ms',
+                    '--target-top': (Math.random() * 25) + '%',
+                    '--target-left': (12 + centeredSpread * 76) + '%',
+                    '--photo-width': size + 'px',
+                    '--photo-height': Math.round(size * 1.24) + 'px',
+                    '--drift-x': ((Math.random() - .5) * 42) + 'px',
+                    '--flight-duration': (5.5 + Math.random() * 1.5) + 's',
+                    '--rise-rotation': ((Math.random() - .5) * 10) + 'deg'
+                })
+                .on('click', function(event) {
+                    event.stopPropagation();
+                    if (Date.now() - (this.lastTouchPreviewAt || 0) < 700) return;
+                    openPhotoLightbox(this.src);
+                })
+                .on('touchend', function(event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    this.lastTouchPreviewAt = Date.now();
+                    openPhotoLightbox(this.src);
+                })
+                .on('animationend', function() { $(this).remove(); })
+                .appendTo($photos);
+            sourceIndex++;
+        }
+        memoryGalleryOnClose = onClose;
+        $('#memoryGalleryPopup').addClass('is-open').attr('aria-hidden', 'false');
+        spawnPhotoBubble();
+        memoryGallerySpawnTimer = setInterval(spawnPhotoBubble, 420);
+    }
+
+    function closeMemoryGalleryPopup() {
+        var $popup = $('#memoryGalleryPopup');
+        if (!$popup.hasClass('is-open')) return;
+        if (memoryGallerySpawnTimer) {
+            clearInterval(memoryGallerySpawnTimer);
+            memoryGallerySpawnTimer = null;
+        }
+        $popup.removeClass('is-open').attr('aria-hidden', 'true');
+        var onClose = memoryGalleryOnClose;
+        memoryGalleryOnClose = null;
+        if (onClose) onClose();
+    }
+
+    $('#continueAfterLetter').on('click', function() {
+        $(this).removeClass('is-visible');
+        $('#topGuideBanner').hide();
+        if (!Array.isArray(CONFIG.imagesInsideBox) || !CONFIG.imagesInsideBox.some(Boolean)) {
+            showBouquetReceivePopup();
+            return;
+        }
+        setJourneyStage('photos');
+        $('#envelopeWrapper').addClass('letter-hidden-for-photos');
+        $('#backdropOverlay').addClass('active');
+        showMemoryGalleryPopup(function() {
+            $('#envelopeWrapper').removeClass('letter-hidden-for-photos');
+            $('#backdropOverlay').removeClass('active');
+        });
+    });
+
+    function showBouquetReceivePopup() {
+        setJourneyStage('flower');
+        $('#flowerReceiveImage').attr('src', CONFIG.bouquet.image);
+        $('#flowerReceivePopup').addClass('is-open').attr('aria-hidden', 'false');
+        typeWriter($('#flowerReceiveHeader'), CONFIG.bouquet.headerMessage, CONFIG.typewriterSpeed);
+    }
+
+    $('#journeyContinueButton').on('click', showBouquetReceivePopup);
+
+    $('#flowerReceiveButton').on('click', function() {
+        $('#flowerReceivePopup').removeClass('is-open').attr('aria-hidden', 'true');
+        closeMemoryGalleryPopup();
+        showFinalGifts();
+        setJourneyStage('final');
+    });
+
+    $('#journeyBackButton').on('click', function() {
+        if (journeyStage === 'flower') {
+            $('#flowerReceivePopup').removeClass('is-open').attr('aria-hidden', 'true');
+            if (!Array.isArray(CONFIG.imagesInsideBox) || !CONFIG.imagesInsideBox.some(Boolean)) {
+                setJourneyStage('letter');
+                $('#continueAfterLetter').addClass('is-visible');
+                return;
+            }
+            setJourneyStage('photos');
+            if (!$('#memoryGalleryPopup').hasClass('is-open')) {
+                $('#envelopeWrapper').addClass('letter-hidden-for-photos');
+                $('#backdropOverlay').addClass('active');
+                showMemoryGalleryPopup(function() {
+                    $('#envelopeWrapper').removeClass('letter-hidden-for-photos');
+                    $('#backdropOverlay').removeClass('active');
+                });
+            }
+            return;
+        }
+
+        if (journeyStage === 'photos') {
+            closeMemoryGalleryPopup();
+            $('#continueAfterLetter').addClass('is-visible');
+            setJourneyStage('letter');
+            return;
+        }
+
+        if (journeyStage === 'final') {
+            stopTeaRain();
+            $('#finalGifts').removeClass('is-visible').attr('aria-hidden', 'true');
+            $('body').removeClass('has-final-gifts');
+            $('#flowerBouquet')
+                .removeClass('show final-gift final-bouquet is-grown spotlight-center docked-bottom-right')
+                .css({ display: '', visibility: '', '--bouquet-left': '', '--bouquet-top': '' });
+            $('#envelopeWrapper').addClass('letter-hidden-for-photos');
+            $('#backdropOverlay').addClass('active');
+            $(window).off('resize.finalFlower');
+            showBouquetReceivePopup();
+        }
+    });
+
+    var topGuideTimer = null;
+
+    function showGuide(key) {
+        var message = CONFIG.guideBanner.messages[key];
+        if (message) typeTopGuide(message.icon, message.text);
+    }
+
+    function openPhotoLightbox(src) {
+        $('#photoLightboxImage').attr('src', src);
+        $('#photoLightbox').addClass('is-open').attr('aria-hidden', 'false');
+        $('#journeyControls').addClass('is-suspended');
+    }
+
+    function closePhotoLightbox() {
+        $('#photoLightbox').removeClass('is-open').attr('aria-hidden', 'true');
+        $('#journeyControls').removeClass('is-suspended');
+    }
+
+    $('#photoLightboxClose').on('click', closePhotoLightbox);
+    $('#photoLightbox').on('click', function(event) {
+        if (event.target === this) closePhotoLightbox();
+    });
+    $(document).on('keydown', function(event) {
+        if (event.key !== 'Escape') return;
+        if ($('#photoLightbox').hasClass('is-open')) closePhotoLightbox();
+    });
+
+    var lastCursorPetalAt = 0;
+    $(document).on('pointermove.cursorPetals', function(event) {
+        var pointer = event.originalEvent;
+        if (!pointer || pointer.pointerType !== 'mouse' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        var now = Date.now();
+        if (now - lastCursorPetalAt < 40) return;
+        lastCursorPetalAt = now;
+
+        var petal = document.createElement('span');
+        petal.className = 'cursor-petal';
+        petal.style.left = (pointer.clientX - 4) + 'px';
+        petal.style.top = (pointer.clientY - 6) + 'px';
+        petal.style.setProperty('--petal-drift', ((Math.random() - .5) * 38) + 'px');
+        petal.style.setProperty('--petal-rotation', (60 + Math.random() * 180) + 'deg');
+        petal.style.setProperty('--petal-color', ['#ff9fba', '#ffd1dc', '#f8b4c8', '#ffe1a8'][Math.floor(Math.random() * 4)]);
+        document.body.appendChild(petal);
+        setTimeout(function() { petal.remove(); }, 1200);
+    });
+
+    function typeTopGuide(icon, text, speed) {
+        if (topGuideTimer) {
+            clearTimeout(topGuideTimer);
+            topGuideTimer = null;
+        }
+
+        if (icon) {
+            $('#topGuideIcon').text(icon);
+        }
+
+        var $textSpan = $('#topGuideText');
+        var chars = Array.from((text || '').normalize('NFC'));
+        var i = 0;
+        var currentSpeed = speed || CONFIG.guideBanner.speed;
+
+        $textSpan.empty();
+
+        function step() {
+            if (i < chars.length) {
+                $textSpan.text($textSpan.text() + chars[i]);
+                i++;
+
+                var delay = currentSpeed;
+                var c = chars[i - 1];
+                if (c === ',' || c === ';') delay = currentSpeed * 3.5;
+                else if (c === '.' || c === '!' || c === '?') delay = currentSpeed * 5;
+
+                topGuideTimer = setTimeout(step, delay);
+            } else {
+                topGuideTimer = null;
+            }
+        }
+
+        step();
+    }
+
+</script>
+
+</html>
